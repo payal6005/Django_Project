@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load social_share %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+{% block pagecontent %}
+ 
+<body>
+
+  {% if blog%}
+  <div class="container-lg" style="margin-top: 100px;" >
+    <div class="row" style="margin-top: 50px;margin-right: 10px;margin-left: 10px;">
+      {% for i in blog %}
+      <div class="col-md-6">
+
+        <div class="card mb-4 shadow-sm"> 
+          <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+          <div class="card-body" style="padding:30px;">
+           
+            
+            <small class="text-muted">Posted On : {{i.posted}}</small>  
+              <br><br>
+            <p class="card-text"><a href="/detailofblog/{{i.id}}" class="tag" style="font-family: Arial, Helvetica, sans-serif;font-size: xx-large;color:black;">{{i.title}}<label style="display: none;">{{i.id}}</label></a></p>
+            <p class="card-text" style="font-family: Arial, Helvetica, sans-serif;font-size: larger;">{{i.body|truncatechars:150}}</p>
+           
+            <div class="d-flex justify-content-between align-items-center" style="background-color: #ddd;padding: 10px;">
+              <div class="btn-group">
+                <a href=""  id="lb"   class="fa fa-thumbs-o-up" style="text-decoration: none;">{{i.likes}} <label style="display: none;" class="ids">{{i.id}}</label></a>        
+                <a href=""  id="ld"  class="fa fa-thumbs-o-down" style="text-decoration: none;margin-left:15px;">{{i.dislikes}} <label style="display: none;" class="ids">{{i.id}}</label></a>  
+                <!-- <a href="" id="commentsonblog">Comments<label>{{i.id}}</label></a> -->
+                <a href="/detailofblog/{{i.id}}" style="margin-top: -4px;margin-left:10px;">
+                  Comments
+                
+                </a>
+              </div>
+              
+              <!-- <input type="text" class="comments" placeholder="Write a comment" style="margin-left: 5px;border-radius: 16px;background-color:#f2f3f5;border:1px solid #ccd0d5;display: flex;justify-content: flex-end;width: 450px;padding: 8px 12px;cursor: text;">
+              <button class="btn post" style="border:1px solid blue;">Post</button>
+              {% post_to_facebook object.title "Post to Facebook!" %} -->
+             <br>
+             
+               
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {%else%}
+      <label>There is no blog</label>
+
+      {%endif%}
+    </div>
+  </div>
+  
+
+<br>
+<br>  
+
+{% endblock %}
+
+
+</body>
+
+
+</html>
+
+
