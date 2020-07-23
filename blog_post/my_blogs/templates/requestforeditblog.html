@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% block pagecontent %}
+ 
+<body>
+  
+ 
+  
+
+  <div class="container-lg" style="margin-top: 100px;" >
+    <div class="row blogrow">
+      <div class="col-md-12">
+    
+        <div class="card mb-4 shadow-sm"> 
+         
+          <div class="card-body" style="padding:15px;">
+           <a  style="font-family:'PT Sans', sans-serif;font-size:120%;color:blue;" href="/myposts/{{user_id}}">Active</a>
+           <a  style="font-family:'PT Sans', sans-serif;font-size:120%;color:blue;margin-left:15px;" href="/myinactiveposts/{{user_id}}">Inactive/Unapproved</a>
+          
+
+            </div>
+            </div>
+          </div>
+          </div>
+          {% if blog%}
+    <div class="row blogrow" style="margin-top: -15px;">
+      {% for i in blog %}
+     
+      <div class="col-md-12">
+
+        <div class="card mb-4 shadow-sm"> 
+         
+          <div class="card-body" style="padding:15px;">
+           
+            <div class="row" style="margin-bottom:5px ;">
+            
+                <div class="col-12">
+                    <label class="idd" style="display: none;">{{i.id}}</label>
+                    <label class="fname" style="display: none;">{{i.firstname}}</label>
+                    <label class="lname" style="display: none;">{{i.lastname}}</label>
+                    <label class="emaill" style="display: none;">{{i.emailid}}</label>
+                    <label class="mobile" style="display: none;">{{i.mobileno}}</label>
+                    <label class="title" style="display: none;">{{i.blog_title}}</label>
+                    <label class="detail" style="display: none;">{{i.blog_detail}}</label>
+                    <label class="category" style="display: none;">{{i.blog_category}}</label>
+                    <label class="image1" style="display: none;">{{i.image}}</label>
+
+                    <small class="text-muted posteddate" style="float: left;">Posted On : {{i.posted}}</small><br>
+                   
+                    
+                   
+                    {% if i.status == 1 %}
+                  <small class="text-muted posteddate" style="font-family:'PT Sans', sans-serif;margin-top:-5px;float: left;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:red;font-family:'PT Sans', sans-serif;font-size: 120%;"><b>Status : Inactive</b></label></small>
+                  
+                  {% elif i.edit_status == 1 %}
+                  <small class="text-muted posteddate" style="font-family:'PT Sans', sans-serif;margin-top:-5px;float: left;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:red;font-family:'PT Sans', sans-serif;font-size: 120%;"><b>Status : Unapproved</b></label></small> 
+                  {%else%}
+                  <small class="text-muted posteddate" style="font-family:'PT Sans', sans-serif;margin-top:-5px;float: left;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:green;font-family:'PT Sans', sans-serif;font-size: 120%;"><b>Status : Active</b></label></small> 
+                  <button type="submit" class="btn btn-success rounded blogrequestbutton" style="margin-left:10px;height:36px;float:right;">Request For Edit Blog</button>
+                  {%endif %}
+
+                 
+                 
+                    
+                </div>
+              </div>
+                        
+           
+            <hr style="margin:0px;padding:0;">
+              
+              <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;margin-top:15px;" >
+                <div class="btn-group">
+                 
+              
+                  {%if ".mp4" in i.image|stringformat:"s" %} 
+            
+            <video width='200' height= '130' style="margin-right:10px ;" controls>
+              <source src="{{i.image.url}}"  type="video/mp4"></source>
+              Your browser does not support the video tag.
+              </video>
+            {%elif "www.youtube.com" in i.image|stringformat:"s"%} 
+            
+            
+            <iframe width='200' height= '130' src="{{i.image}}" style="margin-right:10px;" frameborder="0" allowfullscreen><a href="{{i.image}}"></a></iframe>
+           {%else%}
+           <img src="{{i.image.url}}" style="width: 200px;height: 130px;margin-right:10px ;" class="rounded">
+           
+           {%endif%}
+            
+            <p class="card-text blogtitle"><a href="#" style="color: #5a2a82;font-size:130%;text-decoration:none;">{{i.blog_title}}<label style="display: none;">{{i.id}}</label></a></p>
+           
+            </div>
+            </div>
+            <small class="text-muted" style="font-family:'PT Sans', sans-serif;float: right;font-size: 80%;margin-top:-100px;float:left;margin-left:210px;margin-bottom: 15px;padding: 2px;border-radius: 0.5em;"><span style="color: red;font-family:'PT Sans', sans-serif;font-size:110%;"><b>Category : {{i.category_name}}</b></span></small>
+            <p class="card-text" style="font-family:'PT Sans', sans-serif;font-size: large;font-weight: 300;margin-left:210px;margin-top: -70px;">{{i.blog_detail}}</p>
+           
+            <div class="d-flex justify-content-between align-items-center" >
+                <div class="btn-group">
+               
+                
+                </a>
+              </div>
+             <br> 
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {%else%}
+      <div class="container-lg" style="margin-top: 100px;" >
+        <div class="row blogrow" style="margin-top: -108px;">
+         
+          <div class="col-md-12">
+      <div class="card mb-4 shadow-sm"> 
+         
+        <div class="card-body" style="padding:25px;">
+      <label style="color: #5a2a82;font-size:x-large;text-decoration:none;font-family:'PT Sans', sans-serif;">There is no blog request.</label>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+      {%endif%}
+    </div>
+  </div>
+<br>
+<br>  
+<div class="modal fade blogrequestmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="blogrequestmodal">
+    <div class="modal-dialog" role="document">  
+      <div class="modal-content" style="border:none;border-radius: 0.5em;">
+        <div class="modal-header" style="background-color: #5a2a82;">
+          <h5 class="modal-title" style="font-family:'PT Sans', sans-serif;color:white;">Edit Blog</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> 
+        <div class="modal-body">
+           
+          <form method="POST" action="" enctype="multipart/form-data" id="form_id">
+            {% csrf_token %}
+            <label class="imagefile1"><label>
+         <div class="row">
+           <span name="errormsg" class="errormsg" style="font-size: 80%;color:red;"></span>
+           <div class="col-md-6">
+             <p style="position: relative;margin:1em 0 0;">
+              <i class="fa fa-user "> </i>
+           <input type="text" placeholder="FirstName" name="firstname" class="firstname" style="border:1px solid #d2d8d8;font-family:'PT Sans', sans-serif;text-transform:capitalize;" readonly> </p>
+         
+           </div>
+         
+           <div class="col-md-6">
+            <p style="position: relative;margin:1em 0 0;">
+            <i class="fa fa-user "> </i>
+            <input type="text" placeholder="LastName" name="lastname" class="lastname"  style="border:1px solid #d2d8d8;font-family:'PT Sans', sans-serif;text-transform:capitalize;" readonly>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p style="position: relative;margin:1em 0 0;">  
+            <i class="fa fa-envelope"> </i>
+            <input type="text" placeholder="Email" name="email" class="email" style="border:1px solid #d2d8d8;font-family:'PT Sans', sans-serif;" readonly> 
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p style="position: relative;margin:1em 0 0;">
+            <i class="fa fa-phone"> </i>
+            <input type="text" placeholder="Mobile No" name="mobileno" class="mobileno"  style="border:1px solid #d2d8d8;font-family:'PT Sans', sans-serif;">
+            </p>
+          </div>
+        
+          <div class="col-md-12">
+            <p style="position: relative;margin:1em 0 0;">
+            
+           <select name="categoryname" class="categoryname" style="width:100%;;border:1px solid #d2d8d8;font-family:'PT Sans', sans-serif;" required>
+            <option value="--Select Categoty--" selected>--Select Category--</option>
+            {% for obj in categories %}
+          
+            <option value="{{ obj.id }}">{{ obj.title }}</option>
+          {% endfor %}
+           </select>
+            </p>
+          </div>
+          
+         
+          <div class="col-md-12">
+            <p style="position: relative;margin:1em 0 0;">
+            
+            <textarea placeholder="Blog Title" name="blogtitle" class="title1"  style="border:1px solid #d2d8d8;width: 100%;font-family:'PT Sans', sans-serif;"></textarea>
+            </p>
+          </div>
+          <div class="col-md-12">
+            <p style="position: relative;margin:1em 0 0;">
+            
+            <textarea placeholder="Blog Detail" name="blogdetail" class="blogdetail"  style="border:1px solid #d2d8d8;width: 100%;font-family:'PT Sans', sans-serif;"></textarea>
+            </p>
+          </div>
+          <div class="col-md-6">
+                        
+            <a type="button" href="#" class="uploadimageedit" >Upload image/video</a>
+          </div>
+         
+          <div class="col-md-6">
+            
+            <a  type="button" class="uploadyoutubeedit"  href="#">Youtube link</a>
+          </div>
+          <div class="col-md-6">
+            <p style="position: relative;margin:1em 0 0;margin-top:5px;">
+            
+            <input type="file"  name="imagefile1" class="imagefilerequest">
+            <input type="text" name="youtubelink" class="youtubelink1"   placeholder="Enter link">
+           
+            </p>
+          </div>
+          <div class="col-md-12">
+            <p style="position: relative;margin:1em 0 0;">
+            <button class="btn edit" type="submit" style="width: 100%;background-color: #5a2a82;color: white;">Edit Blog</button>
+            </p>
+          </div>
+
+         </div>
+        </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+</body>
+</html>

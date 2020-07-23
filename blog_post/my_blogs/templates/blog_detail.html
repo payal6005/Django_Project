@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load social_share %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+    <link rel = "icon" type = "image/png" href = "../static/images/blogger1.png">
+    
+</head>
+
+<body>
+    {% block pagecontent %}
+    <div class="container rounded" style="margin-top: 0px;padding: 80px;">
+        <div class="row">
+         
+          <div class="col-md-12">
+    
+              <div class="card mb-6 shadow-sm">
+               
+                <form method="POST" action="/savecomments/{{user.id}}/{{blog.id}}">
+                <div class="card-body" style="padding:25px;">
+                
+                  <label style="display: none;" class="blogidw">{{blog.id}}</label>
+                  <small class="text-muted posteddate">Posted On : {{blog.posted}}</small>
+                  <small class="text-muted posteddate" style="float: right;">Author : {{blog.Author}}</small>  
+                  <hr style="margin:0;padding:0;">
+                 
+                  <div class="d-flex justify-content-between align-items-center" style="margin-top: 10px;">
+                  
+                    <div class="btn-group">
+                      {%if ".mp4" in blog.image|stringformat:"s" %} 
+            
+            <video width='200' height= '130' style="margin-right:10px ;" controls>
+              <source src="{{blog.image.url}}"  type="video/mp4"></source>
+              Your browser does not support the video tag.
+              </video>
+            {%elif "www.youtube.com" in blog.image|stringformat:"s"%} 
+            <iframe width='200' height= '130' src="{{blog.image}}" style="margin-right:10px;" frameborder="0" allowfullscreen></iframe>
+           {%else%}
+           <img src="{{blog.image.url}}" style="width: 200px;height: 130px;margin-right:10px ;" class="rounded">
+           
+           {%endif%}  
+                 
+                  <p class="card-text blogtitle1"><a href="#" style="color: #5a2a82;text-decoration:none;font-size: 90%;">{{blog.title}}</a></p>
+                 
+                </div>
+                </div>
+                <small class="text-muted" style="float: right;font-size: 80%;margin-top:-95px;float:left;margin-left:210px;margin-bottom: 15px;padding: 2px;border-radius: 0.5em;"><span style="color: red;font-family:'PT Sans', sans-serif;font-size: 110%;"><b>Category : {{blog.category}}</b></span></small>
+                <p class="card-text" style="font-family: 'PT Sans', sans-serif;font-size: large;margin-left:210px;margin-top:-60px;">{{blog.body}}</p>
+                  <label style="display: none;" class="blog_user_id">{{user.id}}</label>
+              
+                  <div class="d-flex justify-content-between align-items-center" style="margin-top: 33px;">
+                  
+                      <div class="btn-group">
+                        
+                          <a href=""  id="lb"   class="fa fa-thumbs-o-up" style="text-decoration: none;color:gray;margin-left:210px;">{{blog.likes}} <label style="display: none;" class="ids">{{blog.id}}</label></a>        
+                          <a href=""  id="ld"  class="fa fa-thumbs-o-down" style="text-decoration: none;margin-left:15px;color:gray;">{{blog.dislikes}} <label style="display: none;" class="ids">{{blog.id}}</label></a>    
+                          <a href="#"  data-toggle="popover" class="fa fa-share" style="margin-left: 15px;color:gray"  data-placement="bottom"> Share</a><br><br>
+                          <textarea class="commentss" name="blogcomment" placeholder="Leave a comment" style="margin-top:-10px;margin-left: 20px;border-radius: 16px;background-color:#f2f3f5;border:1px solid #ccd0d5;display: flex;justify-content: flex-end;padding: 8px 12px;cursor: text;width:450px;height:50px;"></textarea>
+                     
+                      <button type="submit" href="" class="btn post rounded" style="margin-left:10px;margin-top:-5px;background-color: #5a2a82;color:white;height:40px;">Post</button>                
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <br>
+               
+                   
+                </div>
+                
+              </div>
+           
+
+          </div>
+            
+               <div class="card-body rounded">
+               
+                <div class="row">
+                 
+                  <div class="col-md-12" style=" background-color:#5a2a82;">
+                    <p  style="color:white;font-family:'PT Sans', sans-serif;font-size:larger;padding-bottom: 0px;margin-top:10px;">Comments</p>
+                   </div>
+                  
+                   {%if commentss%}
+                  <div class="col-md-12" style="background-color: white;">
+                    
+                 {% for i in  commentss%}
+               
+                 <div class="col-md-12" style="margin-top:10px;">
+                  <div class="row" style="margin-top: 10px;margin-bottom: 5px;">
+                    <div class="col-md-10">
+                      <label style="font-family:'PT Sans', sans-serif;font-size:larger;"><b>{{i.user}}</b></label>
+                      <br>
+                      <label style="font-family: 'PT Sans', sans-serif;font-size:medium;">{{i.comments}}</label>
+                    
+                    </div>
+                    
+                    <div class="col-md-2">
+                      <label style="display: none;" class="user_is_superuser" >{{user.is_superuser}}</label>
+               
+                        {% if user.is_superuser%}
+                        <a href="" class="btn btn-danger confirmdelete">Delete<label style="display: none;">{{i.id}}</label><label style="display: none;">{{i.blogid}}</label></a>
+                        {%endif%}
+                      
+                    </div>
+                  </div>
+
+                  <div class="row" style="border-bottom: 1px solid #ccd0d5;">
+                    
+                  </div>
+                  
+                        
+                     
+              
+                </div>
+               
+
+                
+               
+                {%endfor%}
+                {%else%}
+               
+                
+                <br>
+            </div>
+          
+            <div class="row">
+              <div class="col-md-12" style="background-color: white;">
+                <br>
+                  <p style="font-family: 'PT Sans', sans-serif;font-size:large;margin-top:5px;"> There is no comments</p>
+               </div>
+               </div>
+             
+             {%endif%}
+            </div>
+              </div>
+               </div>
+               
+              
+             
+          
+           </div>
+          
+          </div>
+        </div>
+      </div>
+    
+    {% endblock %}  
+   
+   
+</body>
+</html>

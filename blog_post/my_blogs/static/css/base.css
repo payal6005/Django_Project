@@ -1,0 +1,70 @@
+.blog_image{
+    width: 150px;
+    height: 60px;
+    border-radius:1em;
+}
+
+.firstnav{
+    margin-left: 20px;
+    font-size: larger;
+    font-family:'PT Sans', sans-serif;
+    color:gray;
+   
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color:#ddd;
+    color:rgb(163, 148, 148);
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+ }
+ .blogrow{
+    margin-top: 30px;
+    margin-right: 200px;
+    margin-left: 200px;
+ }
+ .blogtitle{
+    font-family:'Oswald', sans-serif;
+    color: #5a2a82;
+ }
+ .blogtitle1{
+    font-family: 'Oswald', sans-serif;
+    font-size: x-large;
+    text-decoration:none;
+    color: #5a2a82;
+ }
+.posteddate{
+    font-family: 'PT Sans', sans-serif;
+    font-size:85%;
+}
+.firstnav {
+    border: none;
+    outline: none;
+    padding: 4px 4px;
+   
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  /* Style the active class, and buttons on mouse-over */
+  .active, .firstnav:hover {
+    
+    color: #5A2A82;
+    border-radius: 1em;
+  }
+  a {   
+    color: black;   
+}
+
+a:active {
+    color: blue;
+}
+
+a[tabindex]:focus {
+    color:blue;
+    outline: none;
+}

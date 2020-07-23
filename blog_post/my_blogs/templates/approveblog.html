@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+{% block pagecontent %}
+ 
+<body>
+  
+ 
+  {% if blog%}
+  <div class="container-lg" style="margin-top: 100px;" >
+    <div class="row blogrow">
+      {% for i in blog %}
+      <div class="col-md-12">
+
+        <div class="card mb-4 shadow-sm"> 
+         
+          <div class="card-body" style="padding:15px;">
+        
+            <form method="POST" action="">
+              <div class="row" style="margin-bottom:5px ;">
+                
+                <div class="col-6">
+                  <small class="text-muted" style="font-family:'PT Sans', sans-serif;float: left;font-size:medium;line-height: 1em;">Name : {{i.firstname}} {{i.lastname}}</small> <br>
+                  <small class="text-muted" style="font-family:'PT Sans', sans-serif;float: left;font-size:medium;line-height: 1em;">Mobile No. : {{i.mobileno}}</small> <br>
+                  <small class="text-muted" style="font-family:'PT Sans', sans-serif;float: left;font-size:medium;line-height: 1em;">Emailid : {{i.emailid}}</small>
+               
+                </div>
+                <div class="col-6">
+                  <a type="submit" href="/approve_blog/{{i.id}}" class="btn btn-success post rounded" style="margin-left:10px;margin-top:-5px;height:40px;float:right;">Approve Blog</a><br><br>
+            
+                  <small class="text-muted posteddate" style="float: right;">Posted On : {{i.posted}}</small><br>
+               
+                  {% if i.status == 1 %}
+                  <small class="text-muted posteddate" style="margin-top:-5px;float: right;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:green;font-family:'PT Sans', sans-serif;"><b>Status : New Blog Request</b></label></small>
+                  
+
+                  
+                  {% elif i.status == 0 %}
+                  {%if i.edit_status == 1%}
+                  <small class="text-muted posteddate" style="margin-top:-5px;float: right;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:red;font-family:'PT Sans', sans-serif;"><b>Status : Existing Blog Request</b></label></small> 
+                   {%endif%}
+                  {%else%}
+                  <small class="text-muted posteddate" style="margin-top:-5px;float: right;padding:2px;border-radius: 0.5em;line-height: 1em;margin-top: 5px;"><label style="color:red;font-family:'PT Sans', sans-serif;">Status : Active</label></small> 
+                 
+                  {%endif %}
+
+                 
+                    
+                </div>
+              </div>
+                        
+           
+            <hr style="margin:0px;padding:0;">
+              
+              <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 10px;margin-top:15px;" >
+                <div class="btn-group">
+                 
+              
+            {%if ".mp4" in i.image|stringformat:"s" %} 
+            
+            <video width='200' height= '130' style="margin-right:10px ;" controls>
+              <source src="{{i.image.url}}"  type="video/mp4"></source>
+              Your browser does not support the video tag.
+              </video>
+            {%elif "www.youtube.com" in i.image|stringformat:"s"%} 
+            <iframe width='200' height= '130' src="{{i.image}}" style="margin-right:10px;" frameborder="0" allowfullscreen></iframe>
+           {%else%}
+           <img src="{{i.image.url}}" style="width: 200px;height: 130px;margin-right:10px ;" class="rounded">
+           
+           {%endif%} 
+            
+            <p class="card-text blogtitle"><a href="#" style="color: #5a2a82;font-size:130%;text-decoration:none;">{{i.blog_title}}<label style="display: none;">{{i.id}}</label></a></p>
+           
+            </div>
+            </div>
+            <small class="text-muted" style="float: right;font-size: 80%;margin-top:-100px;float:left;margin-left:210px;margin-bottom: 15px;padding: 2px;border-radius: 0.5em;"><span style="color: red;font-family:'PT Sans', sans-serif;font-size:110%;"><b>Category : {{i.blog_category}}</b></span></small>
+            <p class="card-text" style="font-family:'PT Sans', sans-serif;font-size: large;font-weight: 300;margin-left:210px;margin-top: -70px;">{{i.blog_detail}}</p>
+           
+            <div class="d-flex justify-content-between align-items-center" >
+                <div class="btn-group">
+               
+                
+                </a>
+              </div>
+             <br> 
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {%else%}
+      <div class="container-lg" style="margin-top: 100px;" >
+        <div class="row blogrow">
+         
+          <div class="col-md-12">
+      <div class="card mb-4 shadow-sm"> 
+         
+        <div class="card-body" style="padding:25px;">
+      <label style="color: #5a2a82;font-size:x-large;text-decoration:none;font-family:'PT Sans', sans-serif;">There is no blog request.</label>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+      {%endif%}
+    </div>
+  </div>
+<br>
+<br>  
+{% endblock %}
+</body>
+</html>

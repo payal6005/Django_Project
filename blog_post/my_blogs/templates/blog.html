@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load social_share %}
+{% load static %}
+{% load embed_video_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+  
+</head>
+{% block pagecontent %}
+ 
+<body>
+
+  {% if blog%}
+  <div class="container-lg" style="margin-top: 100px;" >
+    <div class="row blogrow">
+      {% for i in blog %}
+      <div class="col-md-12">
+
+        <div class="card mb-4 shadow-sm"> 
+         
+          <div class="card-body" style="padding:25px;">
+           
+            
+            <small class="text-muted posteddate">Posted On : {{i.posted}}</small>
+            <small class="text-muted posteddate" style="float: right;">Author : {{i.Author}}</small>  
+             
+              <hr style="margin:0;padding:0;">
+              <br>
+              <div class="d-flex justify-content-between align-items-center" >
+                <div class="btn-group">
+                 
+            {%if ".mp4" in i.image|stringformat:"s" %} 
+            
+            <video width='200' height= '130' style="margin-right:10px ;" controls>
+              <source src="{{i.image.url}}"  type="video/mp4"></source>
+              Your browser does not support the video tag.
+              </video>
+            {%elif "www.youtube.com" in i.image|stringformat:"s"%} 
+            <iframe width='200' height= '130' src="{{i.image}}" style="margin-right:10px;" frameborder="0" allowfullscreen></iframe>
+           {%else%}
+           <img src="{{i.image.url}}" style="width: 200px;height: 130px;margin-right:10px ;" class="rounded">
+           
+           {%endif%}
+        
+            
+            <p class="card-text blogtitle"><a href="/detailofblog/{{i.id}}" style="color: #5a2a82;font-size:130%;">{{i.title}}<label style="display: none;">{{i.id}}</label></a></p><br>
+           
+           
+            </div>
+            </div>
+            <small class="text-muted" style="float: right;margin-top:-95px;float:left;margin-left:210px;margin-bottom: 15px;padding: 2px;border-radius: 0.5em;"><span style="color: red;font-family:'PT Sans', sans-serif;font-size: 110%;"><b>Category : {{i.category_id}}</b></span></small>
+            <p class="card-text" style="font-family:'PT Sans', sans-serif;font-size: large;font-weight: 300;margin-left:210px;margin-top:-70px;">{{i.body|truncatechars:150}}</p>
+           
+            <div class="d-flex justify-content-between align-items-center" >
+                <div class="btn-group">
+                <a href=""  id="lb"   class="fa fa-thumbs-o-up" style="text-decoration: none;color:gray;margin-left:210px;">{{i.likes}} <label style="display: none;" class="ids">{{i.id}}</label></a>        
+                <a href=""  id="ld"  class="fa fa-thumbs-o-down" style="text-decoration: none;margin-left:15px;color:gray;">{{i.dislikes}} <label style="display: none;" class="ids">{{i.id}}</label></a>  
+               
+                <a href="/detailofblog/{{i.id}}" style="margin-top: -4px;margin-left:15px;font-family:'PT Sans', sans-serif;color:gray;font-weight:bold;">
+                  <i class="fa fa-comment">Comments</i>
+                
+                </a>
+              </div>
+             <br> 
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {%else%}
+      <label>There is no blog</label>
+
+      {%endif%}
+    </div>
+  </div>
+<br>
+<br>  
+{% endblock %}
+</body>
+</html>
+
+
